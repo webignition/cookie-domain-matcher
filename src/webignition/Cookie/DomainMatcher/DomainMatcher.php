@@ -39,9 +39,16 @@ class DomainMatcher {
         $reversedHostname = strrev($this->hostname);
         $reversedCookieDomain = strrev($this->cookieDomain);
         
-        for ($index = 0; $index < strlen($reversedCookieDomain); $index++) {
-            if ($reversedCookieDomain[$index] != $reversedHostname[$index]) {
-                return false;
+        $hostnameLength = strlen($reversedHostname);
+        $cookieDomainLength = strlen($reversedCookieDomain);
+        
+        for ($index = 0; $index < $cookieDomainLength; $index++) {
+            if ($index > $hostnameLength - 1) {                
+                return (($index == $cookieDomainLength - 1) && $reversedCookieDomain[$index] == '.');
+            } else {
+                if ($reversedCookieDomain[$index] != $reversedHostname[$index]) {
+                    return false;
+                }                
             }
         }
         
