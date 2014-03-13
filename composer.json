@@ -1,0 +1,29 @@
+{
+    "name": "webignition/cookie-domain-matcher",
+    "description": "For cookie domain and hostname comparisons",
+    "keywords": ["cookie", "domain", "hostname"],
+    "homepage": "https://github.com/webignition/cookie-domain-matcher",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Cram",
+            "email": "jon@webignition.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "webignition\\Tests": "tests/",
+            "": "src/"
+        }
+    },   
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "symfony/class-loader": "*",
+        "phpunit/phpunit": "3.7.*"
+    },            
+    "minimum-stability":"stable",
+    "prefer-stable":true
+}
