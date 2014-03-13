@@ -15,7 +15,15 @@ class DomainMatcher {
         $this->cookieDomain = $this->normaliseDomainInput($cookieDomain);
         $this->hostname = $this->normaliseDomainInput($hostname);
         
+        if ($this->isHostnameIpv4Address()) {
+            return false;
+        }
+        
         if ($this->isExactMatch()) {
+            return true;
+        }
+        
+        if ($this->isCookieDomainSuffixOfHostname()) {
             return true;
         }
         
@@ -27,8 +35,35 @@ class DomainMatcher {
      * 
      * @return boolean
      */
+    private function isCookieDomainSuffixOfHostname() {
+        $reversedHostname = strrev($this->hostname);
+        $reversedCookieDomain = strrev($this->cookieDomain);
+        
+        for ($index = 0; $index < strlen($reversedCookieDomain); $index++) {
+            if ($reversedCookieDomain[$index] != $reversedHostname[$index]) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    
+    /**
+     * 
+     * @return boolean
+     */
     private function isExactMatch() {
         return $this->cookieDomain == $this->hostname;
+    }
+    
+    
+    /**
+     * 
+     * @return boolean
+     */
+    private function isHostnameIpv4Address() {
+        return preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/', $this->hostname);
     }
     
     

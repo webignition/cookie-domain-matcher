@@ -4,11 +4,11 @@ namespace webignition\Tests\Cookie\DomainMatcher;
 
 use webignition\Cookie\DomainMatcher\DomainMatcher;
 
-class ExactMatchTest extends BaseTest {
+class NotMatchCasesTest extends BaseTest {
     
-    public function testExactMatch() {
+    public function testIPv4Hostname() {
         $domainMatcher = new DomainMatcher(); 
-        $this->assertTrue($domainMatcher->isMatch('example.com', 'example.com'));
+        $this->assertFalse($domainMatcher->isMatch('.example.com', '127.0.0.1'));
     }
     
 }
