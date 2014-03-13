@@ -15,12 +15,12 @@ class DomainMatcher {
         $this->cookieDomain = $this->normaliseDomainInput($cookieDomain);
         $this->hostname = $this->normaliseDomainInput($hostname);
         
-        if ($this->isHostnameIpv4Address()) {
-            return false;
-        }
-        
         if ($this->isExactMatch()) {
             return true;
+        }
+        
+        if ($this->isHostnameIpv4Address()) {
+            return false;
         }
         
         if ($this->isCookieDomainSuffixOfHostname()) {
@@ -29,7 +29,6 @@ class DomainMatcher {
         
         return false;
     }
-    
     
     /**
      * 
@@ -42,14 +41,24 @@ class DomainMatcher {
         $hostnameLength = strlen($reversedHostname);
         $cookieDomainLength = strlen($reversedCookieDomain);
         
-        for ($index = 0; $index < $cookieDomainLength; $index++) {
-            if ($index > $hostnameLength - 1) {                
-                return (($index == $cookieDomainLength - 1) && $reversedCookieDomain[$index] == '.');
-            } else {
-                if ($reversedCookieDomain[$index] != $reversedHostname[$index]) {
-                    return false;
-                }                
+        if ($cookieDomainLength > $hostnameLength) {
+            if (!($cookieDomainLength == $hostnameLength + 1 && $this->cookieDomain[0] == '.')) {
+                return false;
             }
+        }
+        
+        if ($hostnameLength > $cookieDomainLength && $this->cookieDomain[0] != '.') {
+            return false;
+        }
+        
+        for ($index = 0; $index < $cookieDomainLength; $index++) {
+            if ($index > $hostnameLength - 1) {
+                return $reversedCookieDomain[$index] == '.';
+            }
+            
+            if ($reversedCookieDomain[$index] != $reversedHostname[$index]) {
+                return false;
+            }                
         }
         
         return true;
