@@ -1,6 +1,6 @@
 {
     "name": "webignition/cookie-domain-matcher",
-    "description": "PHP implementation of cookie domain matching specified in RFC6265",
+    "description": "Implementation of cookie domain matching specified in RFC6265",
     "keywords": ["cookie", "domain", "hostname"],
     "homepage": "https://github.com/webignition/cookie-domain-matcher",
     "type": "library",
