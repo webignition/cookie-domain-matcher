@@ -26,4 +26,9 @@ class NotMatchCasesTest extends BaseTest {
         $this->assertFalse($domainMatcher->isMatch('.foo.example.com', 'example.com'));                
     }
     
+    public function testEmptyCookieDomain() {
+        $domainMatcher = new DomainMatcher(); 
+        $this->assertFalse($domainMatcher->isMatch('', 'example.com'));             
+    }
+    
 }

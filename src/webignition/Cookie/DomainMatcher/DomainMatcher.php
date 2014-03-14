@@ -15,6 +15,10 @@ class DomainMatcher {
         $this->cookieDomain = $this->normaliseDomainInput($cookieDomain);
         $this->hostname = $this->normaliseDomainInput($hostname);
         
+        if ($this->cookieDomain == '') {
+            return false;
+        }
+        
         if ($this->isExactMatch()) {
             return true;
         }
